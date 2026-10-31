@@ -1,0 +1,9 @@
+# Private working memory and credentials must never enter this public kit.
+private/
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+.DS_Store
+Thumbs.db

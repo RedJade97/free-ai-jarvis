@@ -1,59 +1,71 @@
-# Your AI Jarvis should not cost an implementation fee
+# Build your own AI second brain. Keep your money and your knowledge.
 
-**A free guide to building your own basic AI second brain with memory, instructions and voice. By Red Jade.**
+**Free software, a step-by-step guide and reusable procedures. By Red Jade.**
+
+A useful second brain keeps evidence, tracks work, tests ideas and revises what it thinks it knows. This repo helps you build that loop yourself:
+
+**Capture → organise → analyse → test → save lessons → retest.**
 
 ## My take
 
-If somebody is selling you a revolutionary "AI Jarvis" and the deliverable is a memory file, a prompt and a voice agent connected to somebody else's model, I think you're getting rorted.
+If somebody sells you a revolutionary "AI Jarvis" and delivers a prompt, a memory file and a voice interface while hiding the ordinary tools underneath, I think you are getting rorted. Selling that as a secret invention is, in my view, a scammy sales pitch.
 
-Calling that a proprietary second brain and charging a premium while hiding how simple the underlying setup is? To me, that's a scam. The criticism here is of that sales pitch: repackaging ordinary features as a secret invention.
+But a serious second brain can involve more: reliable collection, connected tools, a searchable archive, experiment tracking and lessons checked against new evidence. That work has substance. Judge the implementation, ownership, reliability and support rather than the branding.
 
-You speak to it. It reads some context about you. A model generates a response. It speaks back. You may then keep paying for model usage, voice, hosting or a subscription. A new name and a slick demo do not make those building blocks new technology.
-
-**Before paying someone for this basic setup, use this repo. I'll walk you through it for FREE.** No paid course. No implementation invoice. No sales call to unlock the instructions.
-
-ChatGPT, Claude and Grok already offer native voice and memory or persistent context features. Their capabilities and limits differ; see the [official sources](SOURCES.md). My view is that Grok Bot takes the "Jarvis" idea much further into a persistent work assistant, including team use. It is a useful comparison point before buying a branded wrapper.
-
-This is not a claim that every paid AI service is fraudulent. Custom integrations, reliable automation, access controls, support and ongoing maintenance can be real work worth paying for. Ask the seller to show you exactly what they add.
+**Before paying for an implementation, try building it with this repo. The guide and software are FREE.** No course, sales call, mandatory subscription or API key. The core works offline once Python is installed. An AI assistant can help interpret the evidence, but is optional and does not secretly power the calculations.
 
 ## Start here
 
-1. Follow the [step-by-step setup guide](SETUP.md).
-2. Copy the [memory template](templates/MEMORY.md) into a private folder and personalise it.
-3. Use the [assistant instructions](templates/ASSISTANT.md).
-4. Try the [daily prompts](PROMPTS.md), then test whether the assistant actually remembers your context.
+- **[Step-by-step setup](SETUP.md)** — run a learning demo, complete a practice experiment, then use your own evidence.
+- **[No-code workflow](docs/NO-CODE.md)** — follow the same process with folders, text files and your existing assistant.
+- **[Content-coaching workflow](docs/CONTENT-WORKFLOW.md)** — connect videos, speech, screen content, retention, edits and later results.
+- **[How learning works](docs/LEARNING-RULES.md)** — formulas, exclusions, confidence rules and limitations.
+- **[Optional memory and voice](docs/MEMORY-AND-VOICE.md)** — add conversational personalisation after the evidence workflow is in place.
 
-No programming or API key is required for this guide. It uses existing assistant apps, with a portable memory file you control.
+## What is included
 
-## What you get
-
-| Included | What it does |
+| Layer | Included here |
 | --- | --- |
-| Memory template | Stores your preferences, priorities, projects and decisions in readable text |
-| Assistant instructions | Defines how the assistant should use context and propose memory updates |
-| Native voice walkthrough | Lets you talk through the same context in a supported assistant app |
-| Manual save-and-reload workflow | Carries your approved notes to another chat or provider |
-| Verification steps | Checks recall, corrections and whether an action really happened |
+| Evidence | Local database of sources, dated observations, labelled features, speech/screens and original-media time maps |
+| Experiments | Objectives and success rules, linked follow-up experiments, guarded progress from planned to closed |
+| Procedures | Three [reusable procedure files](procedures/README.md) for capture, review and learning |
+| Lessons | Original claims, executable comparison rules, retest history, exclusions and changing confidence |
+| Review | Local HTML dashboard, readable review and complete context export for an assistant |
+| Learning demo | Fictional results that strengthen a lesson, then contradict it |
 
-This is a guide and template kit, not a standalone app or a telephone service. It reproduces the basic memory-plus-conversation workflow. No particular seller's implementation has been audited or supplied, so an exact clone is not promised. A public phone number, unattended automation and bespoke business integrations need additional setup.
+The Python tool uses only the standard library and makes **no network calls**. Your data defaults to `private/brain`, which Git ignores. The database is local and unencrypted; keep it private and back it up.
 
-## Free means free instructions and templates
+## Try the learning loop
 
-Everything in this repository is free to use under the [MIT licence](LICENSE). Start with a provider's free plan where the required features are available and stay within its limits. Subscriptions, API usage, voice minutes, phone numbers and hosting may cost money. This repo does not make those services unlimited or free.
+Download this repo using **Code → Download ZIP**, extract it, open a terminal in that folder, and run:
 
-If a seller charges a setup fee and leaves you with the ongoing usage bill as well, compare the total cost with doing this yourself.
+```bash
+python brain.py --workspace private/demo demo
+```
 
-## Before you buy
+Open `private/demo/reports/dashboard.html`. The demo uses 64 fictional concepts across four batches. A lesson moves from **hunch → likely → supported (provisional) → contradicted**. The original claim and each result remain available. Use a separate empty folder for each fresh demo.
 
-- Which model powers it, and who pays the ongoing bill?
-- What does it do beyond the provider's own app plus a memory file?
-- Can I see it work on my actual use case, including a fresh conversation?
-- Can I export my memory and instructions in a readable format?
-- What happens when it forgets, makes a mistake or a connected service fails?
-- What custom work, support and maintenance does the fee actually include?
+Need help with Python or terminals? Follow [the full setup guide](SETUP.md).
 
-If the answer is mainly a prompt, a memory file and a voice interface, try this first.
+## What the free version does
 
-**Share the guide. Keep your actual memory private.** Do not publish passwords, client records or personal notes in a public fork. The supplied examples are fictional.
+It imports observations you provide, calculates comparable metrics, checks evidence coverage, tracks experiments, executes a fixed set of lesson tests and exports reports. You manually gather your own analytics, inspect your media, make edits and publish if you choose. An optional assistant helps organise and interpret supplied records.
 
-Product documentation reviewed: **31 October 2026**. Features change; corrections with official sources are welcome. This project is independent of OpenAI, Anthropic and xAI.
+It does **not** automatically scrape TikTok, transcribe or inspect video, edit in Descript, post to Instagram, run in the background or generate audio. Those integrations would be additional work. Native assistant memory and voice alone do not reproduce this workflow.
+
+## Cost and ownership
+
+- **Repo, local tracker, calculations and reports:** no software fee or model tokens.
+- **AI help:** optional; use an existing free allowance where available. Paid models and API usage may cost money.
+- **Voice, cloud storage, transcription and editing services:** optional, with their own pricing and limits.
+- **Your time, computer and storage:** still needed, especially for collection and media review.
+
+Your evidence, experiment history, instructions and lessons stay in readable exports you control. Original material in this repository is available under the [MIT licence](LICENSE).
+
+## Before you pay a seller
+
+Ask them to demonstrate the complete loop on your use case, show how errors and missing data are handled, identify ongoing costs and export your knowledge in an ordinary format. Ask what happens when a lesson is contradicted. A confident voice is not evidence that a system learns reliably.
+
+This is an original reference implementation informed by a supplied content-coaching guide. It does not redistribute that PDF, its embedded collector or paid skills, and is not an exact clone of a commercial product. See [sources and scope](SOURCES.md).
+
+**Share the toolkit. Keep your real evidence and personal memory private.**

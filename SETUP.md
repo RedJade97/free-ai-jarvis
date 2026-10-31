@@ -1,104 +1,180 @@
-# Set up your own basic AI second brain
+# Free setup: a second brain that revises its lessons
 
-You will need an assistant account, a text editor and, for voice, a microphone. Start with the free plan of an app that offers the features you need. Stop at any upgrade screen unless you want that paid service. No API key, server or reseller is needed for the workflow below.
+Build a local evidence archive, experiment tracker, lesson register and review dashboard. No paid app, API key or server is required. AI assistance is optional. The executable examples concern content creation; the [no-code method](docs/NO-CODE.md) also works for other projects.
 
-## 1. Get the templates
+## 1. Download and install
 
-On this repository's GitHub page, choose **Code → Download ZIP**, then extract it. Alternatively, open each file in `templates`, select its raw view and copy the text.
+1. Choose **Code → Download ZIP** on this repository and extract the ZIP.
+2. Install Python 3.10 or later from [python.org](https://www.python.org/downloads/). Windows users can follow the [official instructions](https://docs.python.org/3/using/windows.html).
+3. Open a terminal in the extracted folder. On Windows, right-click the folder background and choose **Open in Terminal**. On macOS/Linux, open Terminal, type `cd `, drag the extracted folder into it and press Enter.
+4. Run `python --version`. If Windows recognises `py` instead, use it in all commands below. On macOS/Linux the command may be `python3`.
 
-Create a private folder called `My Second Brain` outside your public repository. Put copies of `MEMORY.md` and `ASSISTANT.md` there. These are ordinary text files; edit them with any text editor. If you work inside a local clone instead, use its ignored `private/` folder. Ignoring a file does not protect anything you have already published.
+No packages need installing. Standard Python includes SQLite and everything this tool uses.
 
-## 2. Write a small memory file
+## 2. Watch a lesson change its mind
 
-Open your private copy of `MEMORY.md`. Replace the blanks with your preferred name, time zone, response preferences, current priorities and one active project. Delete sections you do not need. Keep the first version short enough to review easily.
-
-For your first test, use fictional information:
-
-```text
-Preferred name: Alex
-Time zone: Australia/Brisbane
-Response preference: Three concise bullets
-Current project: Garden plan
-Next action: Compare three planter layouts
+```bash
+python brain.py --workspace private/demo demo
 ```
 
-Do not include passwords or API keys. Only send information to an assistant provider that you intend that provider to process. Review its data controls before adding personal or business material.
-
-## 3. Give the assistant its context
-
-Open a new conversation in your chosen assistant. Paste the contents of `ASSISTANT.md`, then paste or attach your private `MEMORY.md`. Send:
+Expected output includes:
 
 ```text
-Use the attached or pasted MEMORY.md as my current reference for this chat.
-Tell me my preferred response style and the next action for my active project.
-If you cannot read the file, say so. Do not fill gaps by guessing.
+DEMO-run-1: supports -> hunch
+DEMO-run-2: supports -> likely
+DEMO-run-3: supports -> supported (provisional)
+DEMO-run-4: contradicts -> contradicted
 ```
 
-Check the answer against the actual file. A file sitting on your computer is not automatically visible to the app: you must paste it, upload it, or explicitly connect it.
+Open `private/demo/reports/dashboard.html` in your browser. Its evidence link opens the full JSON record. All demo data is fictional. These classifications are bookkeeping rules, not statistical proof.
 
-## 4. Choose your app's native features
+The demo refuses to overwrite a populated workspace. To repeat from scratch, change its folder to `private/demo-2`. Keep demo and real work separate.
 
-### Claude: a starting route with a free plan
+## 3. Complete a practice experiment
 
-Open Claude on the web, desktop or mobile and complete step 3. For built-in memory, inspect **Settings → Your Claude → Memory from chats**; older layouts may use **Settings → Memory**. Review saved entries through the memory controls. Organisation settings can affect access. [Official memory documentation](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context).
+These records contain two fictional cuts of one idea:
 
-In the same conversation, select the sound-wave voice control, allow microphone access if prompted, and speak the test in step 5. On mobile, choose a voice when asked. Voice is documented for the Free plan too, but consumes your normal usage allowance. [Official voice instructions](https://support.claude.com/en/articles/11101966-use-voice-mode).
+```bash
+python brain.py --workspace private/practice import examples/first-experiment.json
+python brain.py --workspace private/practice advance EX-001 testing
+python brain.py --workspace private/practice import examples/review.json
+python brain.py --workspace private/practice advance EX-001 reviewed
+python brain.py --workspace private/practice advance EX-001 closed --note "Fictional practice complete; test a new concept next."
+python brain.py --workspace private/practice report
+```
 
-### ChatGPT
+Open `private/practice/reports/dashboard.html`. The experiment should be **closed**. Its review links edits and conclusions to evidence IDs. The example's media verification is fictional too; never carry that flag into real records without checking them.
 
-Complete step 3 in a chat. For related conversations, use a ChatGPT project, add the memory file to its sources and the assistant instructions to its project instructions. Start subsequent chats within that project. [Projects documentation](https://learn.chatgpt.com/docs/projects).
+Reimport `examples/first-experiment.json`: it adds zero records. Moving the closed experiment back to testing is refused. A new test gets a new experiment ID, optionally linked through `parent_id`.
 
-Review ChatGPT memory in **Settings → Personalization**. Memory is a convenience; keep your own file as the reference you can inspect and move. [Memory documentation](https://learn.chatgpt.com/docs/customization/memories).
+## 4. Create your real workspace
 
-Where available, start voice in the same chat. The desktop instructions use **Start voice chat** or **Start new voice chat**, with microphone permission and voice selection on first use. Desktop voice availability depends on plan, rollout and workspace settings; do not assume this route is included free. [Voice documentation](https://learn.chatgpt.com/docs/features/voice).
+```bash
+python brain.py init
+```
 
-### Grok
-
-Open Grok on web or mobile and complete step 3. Use its voice interface to continue the conversation where supported by your account. Grok documents voice, file uploads and cross-chat memory, but availability and limits can vary. Keep a portable copy of your context instead of assuming every new conversation has it. [Grok features](https://x.ai/grok) and [official overview](https://docs.x.ai/grok/overview).
-
-Grok Bot is a separate option to evaluate if you need persistent work, connected apps and routines. It is beyond this basic setup and is not needed to follow the guide. [Grok Bot overview](https://docs.x.ai/grok-bot/overview).
-
-## 5. Speak to it
-
-Say:
+This creates `private/brain/brain.sqlite3`. In your file manager, create these optional folders beside the database:
 
 ```text
-Based only on the memory I gave you, what should I work on next?
-Keep it in my preferred response style. Ask one useful follow-up question.
+private/brain/
+  brain.sqlite3
+  incoming/          JSON files you want to import
+  originals/         original media or documents
+  observations/      dated exports or screenshots
+  reviews/           written reviews
+  reports/           generated dashboard and assistant context
 ```
 
-You should hear a reply based on your project and preferences. A dictation button only turns speech into typed text; full voice mode also speaks the response. If full voice is unavailable, finish the guide in text or use your device's dictation. That fallback is not a two-way voice call.
+Copy [MEMORY.md](templates/MEMORY.md) into your private folder and fill in your objective, audience, constraints and preferences. It complements the evidence archive.
 
-## 6. Save approved changes
+Git ignores `private/`, but it is not encrypted. Never upload it or an entire working-project ZIP publicly. Keep custom workspace paths private too.
 
-Tell the assistant something new, then ask:
+## 5. Plan before looking at results
 
-```text
-Propose an updated MEMORY.md containing only confirmed durable facts,
-current project state and agreed decisions. Show what changed separately.
-Do not claim you saved a file unless you actually have file access and saved it.
+Copy `examples/first-experiment.json` to `private/brain/incoming/experiment-001.json`. Replace the fictional experiment with your own and start with an empty `evidence` array. Use the [data reference](docs/DATA-FORMAT.md).
+
+Assign an ID such as `MY-001`, an objective and a success rule: metric, comparison age, minimum views, what changes and what should stay similar. Use timestamps with timezones, such as `2026-10-31T09:00:00+10:00`.
+
+```bash
+python brain.py import private/brain/incoming/experiment-001.json
 ```
 
-Read the proposed changes. Correct mistakes. Save the approved replacement to your private file yourself. If you uploaded the old version to a project, replace that source with the new one so two contradictory versions are not present.
+An assistant can format JSON from your notes using the examples. Review its output; do not let it invent counts, dates or observations.
 
-This manual loop works without automatic memory: **load context → talk → review changes → save → load next time**. Automatic provider memory is a separate feature and may not match your file exactly.
+## 6. Collect and connect evidence
 
-## 7. Test a fresh conversation
+Keep the master recording and actual posted cuts. Label observable features before inspecting performance. Map original-media seconds to posted-cut seconds.
 
-Open a new chat. First ask what it remembers about your project; do not assume the answer is correct. Then load your latest file and instructions and ask again.
+Open your own platform analytics and save an export or dated screenshot. In a new JSON file, record each post's ID, source reference, platform, distribution cohort, publication time, observation time and counts. Saves and views must come from the **same observation**. Use `null` for unknown counts, never zero. Follow the [content walkthrough](docs/CONTENT-WORKFLOW.md) for speech, screens and retention.
 
-| Test | A useful result |
-| --- | --- |
-| What is my next action? | Matches your saved file |
-| What is my time zone? | Matches your saved file |
-| Change my preferred style to one paragraph | A proposed update you can review and save |
-| What is my budget? (when absent from the file) | Says it does not know |
-| Did you put that in my calendar? (with no calendar access) | Says no; a suggestion is not a completed action |
+```bash
+python brain.py import private/brain/incoming/observations-001.json
+python brain.py advance MY-001 testing
+```
 
-If recall fails, confirm the latest file is available in that chat. If a native memory conflicts with it, correct or remove that entry using the app's controls. If limits stop the session, wait for the allowance to reset or continue later; paying a reseller does not remove provider limits.
+Testing requires two distinct posts with two variant names. A later snapshot gets a new evidence ID and observation time. Identical imports are reused; conflicting changes are rejected. See [corrections](docs/DATA-FORMAT.md#corrections-and-backups) before repairing a mistaken record.
 
-## 8. Use it daily
+## 7. Review results and propose edits
 
-Try the [daily prompts](PROMPTS.md). Once a week, remove stale project details and verify important facts against their original source. Keep dated private backups so you can recover an earlier version.
+```bash
+python brain.py report
+```
 
-You now have the basic second-brain workflow: reusable context, a conversational assistant, optional native voice and a memory file you can take elsewhere. Phone calling, scheduled background actions and custom integrations are additional capabilities, not implied by this setup.
+Read the dashboard and source evidence, or give selected records from `context.json`, actual media and [the review procedure](procedures/02-review.md) to your assistant. Only upload information you intend the provider to process; the export is not anonymised.
+
+Copy `examples/review.json` into your private incoming folder. Replace it with your conclusion, limitations, evidence IDs, exact edit intervals, reasons, success metrics and next test. Preserve "cannot tell" when evidence is inadequate.
+
+```bash
+python brain.py import private/brain/incoming/review-001.json
+python brain.py advance MY-001 reviewed
+```
+
+This requires a review covering both variants and complete, manually verified speech/screen/source timelines through the fractional final second. The tool checks the records' shape and coverage; it cannot verify that descriptions are truthful or reasoning is sound.
+
+## 8. Make the next version and close the loop
+
+Use your existing editor to apply reviewed changes or record new material. Preserve an unchanged control where practical. Watch complete exports and verify time maps. Publish yourself if appropriate.
+
+Record the actual decision:
+
+```bash
+python brain.py advance MY-001 closed --note "Reviewed both cuts. Next test: opening property on a new concept; no causal conclusion yet."
+```
+
+Create a new experiment for the next comparison with `parent_id` set to `MY-001`. Repeat steps 5–8. Each comparison follows **planned → testing → reviewed → closed**. There is no separate Instagram Trial state; posting and distribution decisions go in evidence and outcome notes.
+
+## 9. Register a testable lesson
+
+Copy `examples/lesson.json` into your private incoming folder. Replace the ID, claim, creation time and instrument. Specify a feature, platform/cohort, metric, comparison age, minimum views, minimum independent concepts per group and meaningful difference. Keep **eight per group** as a starting gate; it is not proof of statistical reliability.
+
+The tool compares mean saves, shares or follows per 1,000 views, or observed retention at exactly second 10, between content with and without a labelled feature. These are associations, not causal experiments.
+
+```bash
+python brain.py import private/brain/incoming/lesson-001.json
+```
+
+The original archive can suggest a hypothesis. Its executable test uses observations from the lesson's creation onward, so discovery evidence cannot automatically become a new confirmation.
+
+## 10. Retest with later evidence
+
+Collect new independent concepts under the same definitions and import their observations. Use a unique review ID and an actual cutoff with a timezone:
+
+```bash
+python brain.py retest LS-001 --run-id review-001 --as-of 2026-11-07T18:00:00+10:00
+python brain.py report
+```
+
+Replace the example ID and date with yours. Inspect selected evidence, exclusions, group sizes and mean difference. With only one pair of sibling cuts, **insufficient** is correct: one concept is not an archive.
+
+Reuse the same run ID and cutoff to inspect an existing run. New imports need a new run ID and later cutoff. Qualified runs consume their experiments; subsequent confirmations require new experiments observed after the last qualified run. See [the exact rules](docs/LEARNING-RULES.md).
+
+## 11. Run a weekly learning session
+
+Use [the learning procedure](procedures/03-learn.md). Review every active lesson, counterexamples and gaps. Choose at most three next tests and save a private note using [the weekly template](templates/WEEKLY-REVIEW.md).
+
+Reports overwrite the previous rendered dashboard and context export; copy them to a dated private folder for weekly snapshots. The database retains original records and runs.
+
+Audio is optional. Read the report aloud, use device text-to-speech or follow [the memory and voice guide](docs/MEMORY-AND-VOICE.md) within provider limits.
+
+## 12. Back up and verify
+
+After commands finish, copy the whole private workspace to a private backup location. Restore the folder and point `--workspace` to it. The JSON context export is useful for inspection but is not a complete database restore format.
+
+Run the toolkit checks:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Verify your own workflow: imports do not duplicate; unknown counts stay unknown; incomplete timelines block review; reused experiments cannot inflate confidence; contradicted claims remain visible; backups open with `report`.
+
+## Troubleshooting
+
+- **Python missing:** try `py` or `python3`, reopen the terminal after installing, or use the official instructions.
+- **brain.py not found:** open the terminal in the extracted repository folder.
+- **JSON error:** check commas, double quotes and `null`/`true`/`false`; save as UTF-8.
+- **Existing ID differs:** follow the correction guide instead of repeatedly importing a conflict.
+- **Insufficient evidence:** inspect exclusions and collect comparable data. Do not lower thresholds to force success.
+- **Review blocked:** check both variants' verification flags and timeline coverage through the actual end.
+
+This release has no automatic collector or scheduler. Set a personal reminder for collection and weekly review. No agent needs to stay open all day.

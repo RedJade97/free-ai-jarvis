@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "reviews": [
+    {
+      "id": "RV-001",
+      "experiment_id": "EX-001",
+      "evidence_ids": [
+        "EV-control",
+        "EV-test"
+      ],
+      "conclusion": "FICTIONAL: Test has 40 saves per 1,000 versus 20 for control. This pair is one concept, not independent evidence of an opening effect.",
+      "limitations": "Organic distribution is not randomised. No archive corroboration. All example data is invented.",
+      "next_test": "Repeat the opening property on a new concept, holding length and distribution plan similar.",
+      "created_at": "2026-10-04T09:00:00+10:00",
+      "edits": [
+        {
+          "evidence_id": "EV-test",
+          "start": 0,
+          "end": 3,
+          "action": "KEEP",
+          "method": "NONE",
+          "reason": "Test hypothesis: preserve the direct opening while testing a new concept.",
+          "success_metric": "Saves per 1,000 at 24 hours; separately inspect observed retention at 10 seconds."
+        }
+      ]
+    }
+  ]
+}

@@ -7,3 +7,7 @@ private/
 *.pem
 .DS_Store
 Thumbs.db
+__pycache__/
+*.pyc
+*.sqlite3
+*.sqlite3-*

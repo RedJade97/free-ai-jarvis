@@ -1,6 +1,22 @@
-# Official sources and scope
+# Sources, provenance and scope
 
 Reviewed 31 October 2026. These links support the feature comparisons; they do not establish that any particular seller is dishonest. The value judgement in the README is the author's opinion about the described sales pitch.
+
+## Second-brain workflow
+
+The conceptual reference was Angus Sewell's *Your AI Content Coach*, a nine-page PDF supplied by the repository maintainer. It describes evidence collection, content timelines, experiment tracking, reusable procedures and lessons revisited with later evidence. Its examples distinguish a local test with mocked external steps from a fully demonstrated end-to-end integration.
+
+This repository's code, examples and procedure wording are original. The PDF, its embedded TikTok collector and its paid skills are not redistributed or covered by this repository's MIT licence. This implementation uses manual imports and a local Python/SQLite tracker instead of that guide's proposed collection, editing and audio integrations. There is no affiliation or endorsement.
+
+The guide informed the workflow, not proof that a particular tool works or that a particular seller is dishonest. Confidence labels, minimum sample gates and confirmation counts are transparent operational conventions; they are not validated statistical guarantees. See [the implemented rules](docs/LEARNING-RULES.md).
+
+## Local runtime
+
+- [Python downloads](https://www.python.org/downloads/) and [Windows setup](https://docs.python.org/3/using/windows.html).
+- [Python SQLite support](https://docs.python.org/3/library/sqlite3.html): the tracker stores evidence and audit history locally using the standard library.
+- [Python statistics](https://docs.python.org/3/library/statistics.html): the fixed instruments compare arithmetic means, with a leave-one-experiment-out sensitivity check for apparent support.
+
+## Optional native assistant features
 
 | Claim | Official source | Scope |
 | --- | --- | --- |
@@ -22,6 +38,6 @@ Reviewed 31 October 2026. These links support the feature comparisons; they do n
 - That commercial model usage, voice or hosting is unlimited and free.
 - That a memory file provides the security, reliability or integrations of an enterprise deployment.
 
-The practical claim is narrower: try native assistant features and a portable memory file before paying a premium for those same basics. If a seller supplies additional engineering, evaluate that work on its merits.
+The practical claim is to try a transparent, self-owned workflow before paying for an implementation. Native memory and voice alone do not reproduce the richer evidence-and-retest workflow. Additional engineering and reliable integrations can have value.
 
-The guide has been checked against these documents. It has not been exercised inside every provider account or plan. Report a broken step with the app, plan, date and a public documentation link; do not include private memory files.
+The local tool is tested with synthetic evidence, including contradiction, insufficient samples, duplicate protection, timeline coverage and experiment transitions. The documented local demo and practice workflow are exercised separately from provider products. No live TikTok, Instagram, Descript or audio integration has been tested or included. Optional native-app instructions have not been exercised in every account or plan. Report broken steps without including private records.
